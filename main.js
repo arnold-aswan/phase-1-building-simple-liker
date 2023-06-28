@@ -4,6 +4,42 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+// 1. add event listener on like button
+
+const likes = document.querySelectorAll('.like-glyph')
+likes.forEach(like => {
+  like.addEventListener("click", (e) => {
+    mimicServerCall()
+    .then(() => {
+      if(mimicServerCall()) {
+        const like = e.target
+        like.textContent = FULL_HEART
+        like.classList.toggle('activated-heart')
+    
+        if(!like.classList.contains('activated-heart')) {
+          like.textContent = EMPTY_HEART
+        }
+      } 
+    })
+    .catch(() => {
+      error()
+      setTimeout(clearError, 3000)
+    })
+
+  })  
+})
+
+  
+const error = ()=> {
+  const modalError = document.querySelector('#modal')
+  modalError.classList.remove('hidden')
+}
+
+const clearError = () => {
+  const modalError = document.querySelector('#modal')
+  modalError.classList.add('hidden')
+}
+  
 
 
 
